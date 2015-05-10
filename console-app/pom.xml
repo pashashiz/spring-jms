@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>spring-jms</artifactId>
+        <groupId>com.ps.tutorial</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>console-app</artifactId>
+
+    <build>
+        <plugins>
+            <!-- Run Apache Active MQ JMS broker using port number "61616" -->
+            <plugin>
+                <groupId>org.apache.activemq.tooling</groupId>
+                <artifactId>activemq-maven-plugin</artifactId>
+                <version>${activemq.version}</version>
+                <configuration>
+                    <configUri>broker:(tcp://localhost:61616)?useJmx=false&amp;persistent=false</configUri>
+                    <fork>false</fork>
+                    <systemProperties>
+                        <property>
+                            <name>javax.net.ssl.keyStorePassword</name>
+                            <value>password</value>
+                        </property>
+                        <property>
+                            <name>org.apache.activemq.default.directory.prefix</name>
+                            <value>./target/</value>
+                        </property>
+                    </systemProperties>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <!-- JMS implementation -->
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-all</artifactId>
+            <version>${activemq.version}</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+</project>
